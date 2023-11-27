@@ -1,8 +1,12 @@
-import { deleteContactsThunk } from 'components/redux/contactsThunk';
-import { selectFilteredContacts } from 'components/redux/selectors';
 import React from 'react';
-
+import {
+  ContactListCss,
+  Items,
+  ButtonCss,
+} from 'components/ContactList/ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectFilteredContacts } from 'Redux/selectors';
+import { deleteContactsThunk } from 'Redux/contactsThunk';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -10,19 +14,19 @@ export const ContactList = () => {
 
   return (
     <div>
-      <ul>
-        {filteredContactList?.map(({ id, name, phone }) => (
-          <li key={id}>
-            {name}: {phone}
-            <button
+      <ContactListCss>
+        {filteredContactList?.map(({ id, name, number }) => (
+          <Items key={id}>
+            {name}: {number}
+            <ButtonCss
               type="button"
               onClick={() => dispatch(deleteContactsThunk(id))}
             >
               Delete
-            </button>
-          </li>
+            </ButtonCss>
+          </Items>
         ))}
-      </ul>
+      </ContactListCss>
     </div>
   );
 };

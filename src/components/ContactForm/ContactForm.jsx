@@ -1,9 +1,12 @@
-import {
-  addContactsThunk,
-  getRequestContacts,
-} from 'components/redux/contactsThunk';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { addContactsThunk, getRequestContacts } from 'Redux/contactsThunk';
+import {
+  ContactFormCss,
+  Description,
+  InputFormCss,
+  ButtonCss,
+} from 'components/ContactForm/ContactForm.styled';
 
 export const ContactForm = () => {
   const [userName, setUserName] = useState('');
@@ -34,7 +37,7 @@ export const ContactForm = () => {
     ev.preventDefault();
     const newContact = {
       name: userName,
-      phone: number,
+      number: number,
     };
     dispatch(addContactsThunk(newContact));
     reset();
@@ -46,22 +49,23 @@ export const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleAddContacts}>
-      <p>
+    <ContactFormCss onSubmit={handleAddContacts}>
+      <p> Add Contact</p>
+      <Description>
         Name
-        <input
+        <InputFormCss
           onChange={handleInputContacts}
           type="text"
           name="userName"
           value={userName}
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          pattern="^[a-zA-Zа-яА-Я]+(([' \\-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
-      </p>
-      <p>
+      </Description>
+      <Description>
         Number
-        <input
+        <InputFormCss
           onChange={handleInputContacts}
           type="tel"
           name="number"
@@ -70,8 +74,8 @@ export const ContactForm = () => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-      </p>
-      <button type="submit">Add contacts</button>
-    </form>
+      </Description>
+      <ButtonCss type="submit">Add contacts</ButtonCss>
+    </ContactFormCss>
   );
 };

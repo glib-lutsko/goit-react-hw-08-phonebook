@@ -1,18 +1,23 @@
-import axios from 'axios';
+import { phonebookInstance } from "./baseURL";
 
-const BASE_URL = 'https://654510115a0b4b04436d903b.mockapi.io/contacts';
 
 export const getContacts = async () => {
-  const { data } = await axios.get(`${BASE_URL}/contacts`);
-  return data;
+    const { data } = await phonebookInstance.get('/contacts');
+    return data;
 };
 
 export const addContact = async contact => {
-  const { data } = await axios.post(`${BASE_URL}/contacts`, contact);
-  return data;
+    //body= contacts {name, number}
+    const { data } = await phonebookInstance.post('/contacts', contact);
+    return data;
 };
 
 export const deleteContact = async id => {
-  const { data } = await axios.delete(`${BASE_URL}/contacts/${id}`);
-  return data;
+    const { data } = await phonebookInstance.delete(`/contacts/${id}`);
+    return data;
+};
+
+export const refreshContact = async contact => {
+    const { data } = await phonebookInstance.patch('/contacts', contact);
+    return data;
 };
